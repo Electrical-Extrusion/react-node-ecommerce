@@ -15,10 +15,14 @@ const Search = () => {
 
     const loadCategories = () => {
         getCategories().then(data => {
-            if (data.error) {
-                console.log(data.error);
-            } else {
-                setData({ ...data, categories: data });
+            try{
+                if (data.error && data.error !== undefined) {
+                    console.log(data.error);
+                } else {
+                    setData({ ...data, categories: data });
+                }
+            }catch(e){
+                console.log(e);
             }
         });
     };
@@ -32,10 +36,14 @@ const Search = () => {
         if (search) {
             list({ search: search || undefined, category: category }).then(
                 response => {
-                    if (response.error) {
-                        console.log(response.error);
-                    } else {
-                        setData({ ...data, results: response, searched: true });
+                    try{
+                        if (response.error) {
+                            console.log(response.error);
+                        } else {
+                            setData({ ...data, results: response, searched: true });
+                        }
+                    }catch(e){
+                        console.log(e);
                     }
                 }
             );

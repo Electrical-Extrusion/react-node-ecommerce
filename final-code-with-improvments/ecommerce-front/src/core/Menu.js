@@ -42,12 +42,12 @@ const Menu = ({ history }) => (
                 >
                     Cart{" "}
                     <sup>
-                        <small className="cart-badge">{itemTotal()}</small>
+                        <small className="cart-badge">{itemTotal()   }</small>
                     </sup>
                 </Link>
             </li>
 
-            {isAuthenticated() && isAuthenticated().user.role === 0 && (
+            {isAuthenticated() && isAuthenticated().user.role === 0 && isAuthenticated() !== undefined && (
                 <li className="nav-item">
                     <Link
                         className="nav-link"
@@ -59,7 +59,7 @@ const Menu = ({ history }) => (
                 </li>
             )}
 
-            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+            {isAuthenticated() && isAuthenticated().user.role === 1 && isAuthenticated().user !== undefined && (
                 <li className="nav-item">
                     <Link
                         className="nav-link"
@@ -71,7 +71,7 @@ const Menu = ({ history }) => (
                 </li>
             )}
 
-            {!isAuthenticated() && (
+            {!isAuthenticated() && isAuthenticated() !== undefined && (
                 <Fragment>
                     <li className="nav-item">
                         <Link
@@ -95,7 +95,7 @@ const Menu = ({ history }) => (
                 </Fragment>
             )}
 
-            {isAuthenticated() && (
+            {isAuthenticated() && isAuthenticated() !== undefined && (
                 <li className="nav-item">
                     <span
                         className="nav-link"

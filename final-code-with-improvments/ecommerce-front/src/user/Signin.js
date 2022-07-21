@@ -5,9 +5,9 @@ import { signin, authenticate, isAuthenticated } from "../auth";
 
 const Signin = () => {
     const [values, setValues] = useState({
-        email: "ryan@gmail.com",
-        password: "rrrrrr9",
-        error: "",
+        email: '',
+        password: '',
+        error: " ",
         loading: false,
         redirectToReferrer: false
     });
@@ -23,16 +23,23 @@ const Signin = () => {
         event.preventDefault();
         setValues({ ...values, error: false, loading: true });
         signin({ email, password }).then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error, loading: false });
-            } else {
-                authenticate(data, () => {
-                    setValues({
-                        ...values,
-                        redirectToReferrer: true
+        
+               try{
+                if (data.error && data.error !== undefined) {
+                    setValues({ ...values, error: data.error, loading: false });
+                } else {
+                    authenticate(data, () => {
+                        setValues({
+                            ...values,
+                            redirectToReferrer: true
+                        });
                     });
-                });
-            }
+                }
+               }
+           catch(e){
+            console.log(e);
+            return false
+           }
         });
     };
 
@@ -80,15 +87,19 @@ const Signin = () => {
         );
 
     const redirectUser = () => {
-        if (redirectToReferrer) {
-            if (user && user.role === 1) {
-                return <Redirect to="/admin/dashboard" />;
-            } else {
-                return <Redirect to="/user/dashboard" />;
+        try{
+            if (redirectToReferrer && redirectToReferrer !== undefined) {
+                if (user && user.role === 1 && user !== undefined) {
+                    return <Redirect to="/admin/dashboard" />;
+                } else {
+                    return <Redirect to="/user/dashboard" />;
+                }
             }
-        }
-        if (isAuthenticated()) {
-            return <Redirect to="/" />;
+            if (isAuthenticated()) {
+                return <Redirect to="/" />;
+            }
+        }catch(e){
+            console.log(e);
         }
     };
 

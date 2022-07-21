@@ -22,12 +22,16 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
 
     const getToken = (userId, token) => {
         getBraintreeClientToken(userId, token).then(data => {
-            if (data.error) {
-                console.log(data.error);
-                setData({ ...data, error: data.error });
-            } else {
-                console.log(data);
-                setData({ clientToken: data.clientToken });
+            try{
+                if (data.error) {
+                    console.log(data.error);
+                    setData({ ...data, error: data.error });
+                } else {
+                    console.log(data);
+                    setData({ clientToken: data.clientToken });
+                }
+            }catch(e){
+                console.log(e);
             }
         });
     };

@@ -22,9 +22,22 @@ const Signup = () => {
         event.preventDefault();
         setValues({ ...values, error: false });
         signup({ name, email, password }).then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error, success: false });
-            } else {
+            try{
+                if (data.error === true && data.error !== undefined) {
+                    setValues({ ...values, error: data.error, success: false });
+                } else {
+                    setValues({
+                        ...values,
+                        name: '',
+                        email: '',
+                        password: '',
+                        error: '',
+                        success: true
+                    });
+                }
+            }catch(e){
+                console.log(e);
+
                 setValues({
                     ...values,
                     name: '',
@@ -32,9 +45,12 @@ const Signup = () => {
                     password: '',
                     error: '',
                     success: true
-                });
+                })
             }
-        });
+
+
+            }
+        );
     };
 
     const signUpForm = () => (

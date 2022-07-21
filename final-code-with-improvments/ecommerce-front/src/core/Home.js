@@ -11,10 +11,14 @@ const Home = () => {
 
     const loadProductsBySell = () => {
         getProducts('sold').then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setProductsBySell(data);
+            try{
+                if (data.error) {
+                    setError(data.error);
+                } else {
+                    setProductsBySell(data);
+                }
+            }catch(e){
+                console.log(e);
             }
         });
     };
@@ -22,10 +26,14 @@ const Home = () => {
     const loadProductsByArrival = () => {
         getProducts('createdAt').then(data => {
             console.log(data);
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setProductsByArrival(data);
+            try{
+                if (data.error) {
+                    setError(data.error);
+                } else {
+                    setProductsByArrival(data);
+                }
+            }catch(e){
+                console.log(e);
             }
         });
     };
